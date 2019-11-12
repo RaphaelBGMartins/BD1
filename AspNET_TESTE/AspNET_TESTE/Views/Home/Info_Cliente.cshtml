@@ -1,0 +1,116 @@
+﻿<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center" id="titulo">
+                <h1 class="display-3"><i class="fa fa-address-card-o"></i> Informações do usuário</i> </h1>
+            </div>
+        </div>
+
+        <div class="pos-f-t" id="buscar">
+            <div class="collapse" id="navbarToggleExternalContent">
+                <div class="p-4">
+                    <h2>Editar suas informações</h2>
+                    <div class="form-group">
+                        <label for="name" class="cols-sm-2 control-label">Nome</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                            </div>
+                            <input class="form-control bg-light" placeholder="Entre com seu email" type="text" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name" class="cols-sm-2 control-label">Email</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                            </div>
+                            <input class="form-control bg-light" placeholder="Entre com seu email" type="email"
+                                   required>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="name" class="cols-sm-2 control-label">Data de Nascimento</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-calendar"></i> </span>
+                                </div>
+                                <input class="form-control bg-light" type="date" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="name" class="cols-sm-2 control-label">Telefone</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+                                </div>
+                                <input class="form-control bg-light" placeholder="(xx) xxxx-xxx" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="name" class="cols-sm-2 control-label">CPF</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                                </div>
+                                <input class="form-control bg-light" placeholder="Entre com o seu CPF" type="text"
+                                       required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-3">
+                        <div class="form-group" id="butao">
+                            <button href="/login.html" type="button"
+                                    class="btn btn-success btn-md btn-block login-button">
+                                Salvar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar navbar-dark bg-secondary ">
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+    </div>
+
+    <!---------------------------------------------------------  Table  ----------------------------------------------------->
+    <div class="container">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Data do Aluguel</th>
+                    <th>Desalugar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>01</td>
+                    <td>Operação Overlord</td>
+                    <td>04/11/2019</td>
+                    <td>
+                        <a class="btn icon-btn btn-danger btn-sm" href="" id="btn-del"><span class="fa fa-times"></span></a>
+                    </td>
+                </tr>
+              
+            </tbody>
+        </table>
+    </div>
+
+</div>

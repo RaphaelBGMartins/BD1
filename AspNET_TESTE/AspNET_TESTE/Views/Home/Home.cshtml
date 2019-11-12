@@ -1,0 +1,118 @@
+﻿<div class="jumbotron">
+    <h1> Filmes em Catálogo</h1>
+    <!--
+    <div class="pos-f-t" id="buscar">
+        <div class="collapse" id="navbarToggleExternalContent">
+            <div class="p-4">
+                <h2>Filtrar Busca de Filmes</h2>
+                <div class="mb-3">
+                    <label>Nome do filme</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-film"></i></span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Filme">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label>Nome do diretor</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-user-alt"></i></span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Diretor">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label>Nome do ator</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-user-alt"></i></span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Ator">
+                    </div>
+                </div>
+
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="name" class="cols-sm-2 control-label">Duração</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-clock-o"></i> </span>
+                                </div>
+                                <input class="form-control bg-light" placeholder="Tempo em minutos"
+                                       type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="country">Gênero</label>
+                            <select class="form-control">
+                                <option value="">Selecine o Gênero...</option>
+                                <option>Drama</option>
+                                <option>Ação</option>
+                                <option>Suspense</option>
+                                <option>Comédia</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="name" class="cols-sm-2 control-label">Ano de lançamento</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-calendar-o"></i> </span>
+                                </div>
+                                <input class="form-control bg-light" placeholder="Entre com o ano" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                <hr class="mb-4">
+
+                <div class="row mt-4">
+                    <div class="col-3">
+                        <div class="form-group" id="butao">
+                            <button href="/login.html" type="button" class="btn btn-primary btn-md btn-block">
+                                <i class="fas fa-search"></i> Buscar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar navbar-dark bg-secondary ">
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+    </div>
+        -->
+    <!---------------------------------------------------------  Cards  ----------------------------------------------------->
+    <div class="container" id="estante">
+        <div class="row library">
+
+            <div class="col-xs-12 shelf hidden-md hidden-lg"></div>
+            @{
+
+                Consulta result = new Consulta();
+                ViewBag.mensagem = result.BuscaFilmes().Rows[1].ItemArray[0];
+
+                <script type="text/javascript">
+                    var teste = @ViewBag.mensagem
+                    window.alert(teste);
+                </script>
+            }
+            <div class="col-xs-4 col-md-2">
+                <a href="Info_FIlme?id=1"> 1 </a>
+            </div>
+        </div>
+    </div>
+</div>

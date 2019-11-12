@@ -1,10 +1,10 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Meu Aplicativo ASP.NET</title>
+    <title>@ViewBag.Title - Biblioteca Digital</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -12,18 +12,18 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
+                <img src="~/imagens/video.png" style="width:60px;height:40px;">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Nome do aplicativo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Início", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Sobre", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contato", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Início", "Home", "Home")</li>
+                    <li>@Html.ActionLink("Minha Conta", "Info_Cliente", "Home")</li>
+                </ul>
+                <ul class="nav navbar-nav" id="adm">
+                    <li>@Html.ActionLink("Área do Administrador", "Administrador", "Home")</li>
                 </ul>
             </div>
         </div>
@@ -32,10 +32,39 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Meu Aplicativo ASP.NET</p>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <hr>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <h4>Banco de Dados I</h4>
+                        <p>Trabalho de banco de dados I - UERJ</p>
+                        <p>Desenvolver um projeto de banco de dados relacional e sua respectiva aplicação.</p>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <h4>Integrantes</h4>
+                        <div class="list-group text-center">
+                            <a class="list-group-item list-group-action list-group-item-dark">Nilson Junio</a>
+                            <a class="list-group-item list-group-action list-group-item-dark">Raphael Bragança</a>
+                            <a class="list-group-item list-group-action list-group-item-dark">Luis Carlos</a>
+                            <!-- list-group-item-primary action disable -->
+                        </div>
+                    </div>
+
+                    <div class="col-12 mt-3 text-center">
+                        <p class="mb-2">
+                            Copyright © 2019 All rights reserved. | 
+                            Designed With by Nilson, Raphael and Luis Carlos.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
         </footer>
     </div>
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

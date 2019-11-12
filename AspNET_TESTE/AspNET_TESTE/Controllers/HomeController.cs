@@ -10,20 +10,37 @@ namespace AspNET_TESTE.Controllers {
             return View();
         }
 
-        public ActionResult About() {
-            ViewBag.Message = "Your application description page.";
+        public ActionResult Home() {
+            ViewBag.Title = "Home";
+            //ViewBag.Message = "Your application description page.";
 
             return View();
         }
 
-        public ActionResult Contact() {
-            ViewBag.Message = "Your contact page.";
+        public ActionResult Cad_Cliente() {
+            ViewBag.Title = "Cadastro de Cliente";
+            //ViewBag.Message = "Your application description page.";
 
-            ViewBag.Exemplo = "Apenas mais um teste";
-        
-            //ViewBag.Title = "foi?";  //UMA OPÇÃO
-            
             return View();
         }
+
+        public ActionResult Info_Filme() {
+            ViewBag.Title = "Filme";
+            //ViewBag.Message = "Your application description page."
+            return View();
+        }
+
+        public ActionResult Info_Cliente() {
+            ViewBag.Title = "Cliente";
+            //ViewBag.Message = "Your application description page."
+            return View();
+        }
+
+        public ActionResult Administrador() {
+            ViewBag.Title = "Administrador";
+            //ViewBag.Message = "Your application description page."
+            return View();
+        }
+
     }
 }

@@ -1,0 +1,127 @@
+﻿<div  class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center" id="titulo">
+                <h1 class="display-3"><i class="fa fa-film"></i> Gerência de Filmes</i> </h1>
+
+            </div>
+        </div>
+        <!---------------------------------------------------------  Buscar  ----------------------------------------------------->
+
+        <div class="pos-f-t" id="buscar">
+            <div class="collapse" id="navbarToggleExternalContent">
+                <form class="p-4" method="post" action="#">
+                    <div class="form-group">
+                        <label for="name" class="cols-sm-2 control-label">Nome do filme</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fas fa-film"></i> </span>
+                            </div>
+                            <input class="form-control bg-light" placeholder="Entre com nome do filme" type="text">
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                    <div class="form-group">
+                        <label for="name" class="cols-sm-2 control-label">Código do filme</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa fa-calendar-o"></i> </span>
+                            </div>
+                            <input class="form-control bg-light" placeholder="Entre com o código" type="text">
+                        </div>
+                    </div>
+                </div>
+
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="name" class="cols-sm-2 control-label">Duração</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-clock-o"></i> </span>
+                        </div>
+                        <input class="form-control bg-light" placeholder="Tempo em minutos"
+                               type="text">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="name" class="cols-sm-2 control-label">Gênero</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-dot-circle-o"></i> </span>
+                        </div>
+                        <input class="form-control bg-light" placeholder="Entre com o gênero" type="text">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="name" class="cols-sm-2 control-label">Ano de lançamento</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-calendar-o"></i> </span>
+                        </div>
+                        <input class="form-control bg-light" placeholder="Entre com o ano" type="text">
+                    </div>
+                </div>
+            </div>
+
+            <hr class="mb-4">
+
+            <div class="row mt-4">
+                <div class="col-3">
+                    <div class="form-group" id="butao">
+                        <button href="/login.html" type="button"
+                                class="btn btn-primary btn-md btn-block">
+                            <i class="fas fa-search"></i> Cadastrar
+                        </button>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+        </div>
+        <nav class="navbar navbar-dark bg-secondary ">
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon">Cadastrar Filmes</span>
+            </button>
+        </nav>
+    </div>
+
+    <!---------------------------------------------------------  Table  ----------------------------------------------------->
+
+    <div class="container">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Duração</th>
+                    <th>Gênero</th>
+                    <th>Ano</th>
+                    <th>Deletar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>02</td>
+                    <td>Bohemian Rhapsody</td>
+                    <td>134</td>
+                    <td>Bibliografia</td>
+                    <td>2018</td>
+                    <td>
+                        <a class="btn icon-btn btn-danger btn-sm" href="" id="btn-del"><span class="fa fa-trash"></span></a>
+                    </td>
+                </tr>
+              
+            </tbody>
+        </table>
+    </div>
+</div>

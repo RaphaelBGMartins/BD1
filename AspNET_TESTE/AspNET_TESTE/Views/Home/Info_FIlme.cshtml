@@ -1,0 +1,61 @@
+﻿@{
+    string a = Request.QueryString["id"];
+    ViewBag.Nomefilme = a;
+}
+
+
+<div class="jumbotron">
+    <div class="container">
+        <section class="my-5">
+            <div class="row">
+                <div class="col-lg-7">
+                    <h3 class="font-weight-bold mb-3"><strong>@ViewBag.NomeFilme</strong></h3>
+                    <table class="table">
+                        <thead>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th><i class="fa fa-address-card"></i>  Diretor: </th>
+                                <td>@ViewBag.Diretor</td>
+                            </tr>
+                            <tr>
+                                <th><i class="fa fa-address-card-o"></i>  Elenco:  </th>
+                                <td>@ViewBag.Ator</td>
+                            </tr>
+                            <tr>
+                                <th><i class="fa fa-video-camera"></i>  Estúdio:  </th>
+                                <td>@ViewBag.Estudio</td>
+                            </tr>
+                            <tr>
+                                <th><i class="fa fa-clock-o"></i>  Duração: </th>
+                                <td>@ViewBag.Duracao</td>
+                            </tr>
+                            <tr>
+                                <th><i class="fa fa-dot-circle-o"></i>  Gênero: </th>
+                                <td>@ViewBag.Genero </td>
+                            </tr>
+                            <tr>
+                                <th><i class="fa fa-calendar-o"></i>  Lançamento:  </th>
+                                <td>@ViewBag.Lancamento</td>
+                            </tr>
+                            <tr>
+                                <th><i class="fa fa-globe"></i> Nacionalidade:  </th>
+                                <td>@ViewBag.Nacionalidade</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row mt-4 justify-content-center">
+                <div class="col-4">
+                    <div class="form-group" id="butao">
+                        <button href="#" type="button" class="btn btn-success btn-md btn-block">
+                            <i class="fa fa-check" aria-hidden="true"></i> Alugar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
