@@ -1,0 +1,10 @@
+﻿@{
+    String CPF = Request.Form["cpf"];
+    String Email = Request.Form["email"];
+    Manipulacao mn = new Manipulacao();
+    if (mn.Conferencia_User(CPF, Email) > 0 && CPF.Length > 0 && Email.Length > 0) {
+        Response.Redirect("Home?user=" + CPF);
+    } else {
+        Response.Redirect("Index?erro=validacao");
+    }
+}

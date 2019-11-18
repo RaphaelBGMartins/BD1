@@ -1,0 +1,21 @@
+﻿@{ 
+    String nome = Request.QueryString["nome"];
+    String cod = Request.QueryString["cod"];
+    String dura = Request.QueryString["dura"];
+    String ano = Request.QueryString["ano"];
+    String estd = Request.QueryString["estd"];
+    String gen = Request.QueryString["gen"];
+    String ator = Request.QueryString["ator"];
+    String dir = Request.QueryString["dir"];
+
+    String[] generos = gen.Split(',');
+    String[] atores = ator.Split(',');
+    String[] diretores = dir.Split(',');
+
+    Manipulacao mn = new Manipulacao();
+    String msg = mn.InserindoNovoFilme(nome, cod, dura, ano, estd, generos, atores, diretores);
+    if (!msg.Equals("Sucesso")) {
+        msg = msg.Replace("\n", " ").Replace("\r", "");
+    }
+    Response.Redirect("Administrador?msgCad="+msg);
+}

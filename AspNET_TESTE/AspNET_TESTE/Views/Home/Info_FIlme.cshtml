@@ -1,6 +1,36 @@
 ﻿@{
-    string a = Request.QueryString["id"];
-    ViewBag.Nomefilme = a;
+    String user = Request.QueryString["user"];
+    ViewBag.User = user;
+    string id = Request.QueryString["id"];
+    ViewBag.id = id;
+    Manipulacao dados = new Manipulacao();
+    dados.Busca_InfoFilme(id, user);
+    ViewBag.NomeFilme = dados.dados_InfoFilme_Filme[0];
+    ViewBag.Diretor = dados.dados_InfoFime_Diretor;
+    ViewBag.Ator = dados.dados_InfoFime_Ator;
+    ViewBag.Estudio = dados.dados_InfoFilme_Filme[1];
+    ViewBag.Duracao = dados.dados_InfoFilme_Filme[2];
+    ViewBag.Genero = dados.dados_InfoFime_Genero;
+    ViewBag.Lancamento = dados.dados_InfoFilme_Filme[3];
+    ViewBag.Alugado = dados.dados_InfoFilme_Alugado;
+
+    String mensagem = Request.QueryString["msg"];
+    String aluga = Request.QueryString["aluga"];
+    if (mensagem != null) {
+        if (mensagem.Equals("Sucesso") && aluga.Equals("0")) {
+            <script>
+                window.alert("Filme Desalugado com Sucesso!")
+            </script>
+        } else if (mensagem.Equals("Sucesso") && aluga.Equals("1")) {
+            <script>
+                window.alert("Filme Alugado com Sucesso!")
+            </script>
+        } else {
+            <script>
+                window.alert(@mensagem)
+            </script>
+        }
+    }
 }
 
 
@@ -9,7 +39,7 @@
         <section class="my-5">
             <div class="row">
                 <div class="col-lg-7">
-                    <h3 class="font-weight-bold mb-3"><strong>@ViewBag.NomeFilme</strong></h3>
+                    <h2 class="font-weight-bold mb-3"><strong>@ViewBag.NomeFilme</strong></h2>
                     <table class="table">
                         <thead>
                         </thead>
@@ -28,7 +58,7 @@
                             </tr>
                             <tr>
                                 <th><i class="fa fa-clock-o"></i>  Duração: </th>
-                                <td>@ViewBag.Duracao</td>
+                                <td>@ViewBag.Duracao min</td>
                             </tr>
                             <tr>
                                 <th><i class="fa fa-dot-circle-o"></i>  Gênero: </th>
@@ -38,24 +68,37 @@
                                 <th><i class="fa fa-calendar-o"></i>  Lançamento:  </th>
                                 <td>@ViewBag.Lancamento</td>
                             </tr>
-                            <tr>
-                                <th><i class="fa fa-globe"></i> Nacionalidade:  </th>
-                                <td>@ViewBag.Nacionalidade</td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <div class="row mt-4 justify-content-center">
-                <div class="col-4">
-                    <div class="form-group" id="butao">
-                        <button href="#" type="button" class="btn btn-success btn-md btn-block">
-                            <i class="fa fa-check" aria-hidden="true"></i> Alugar
-                        </button>
-                    </div>
-                </div>
-            </div>
+            @{
+                if (ViewBag.Alugado) {
+                    <form action="Att_Aluga?user=@ViewBag.User&id=@ViewBag.id&aluga=0" method="post">
+                        <div class="row mt-4 justify-content-center">
+                            <div class="col-4">
+                                <div class="form-group" id="butao">
+                                    <button type="submit" class="btn btn-danger btn-md btn-block">
+                                        <i class="fa fa-times" aria-hidden="true"></i>  Desalugar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                } else {
+                    <form action="Att_Aluga?user=@ViewBag.User&id=@ViewBag.id&aluga=1" method="post">
+                        <div class="col-4">
+                            <div class="form-group" id="butao">
+                                <button type="submit" class="btn btn-success btn-md btn-block">
+                                    <i class="fa fa-check" aria-hidden="true"></i> Alugar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                }
+            }
+
         </section>
     </div>
 </div>

@@ -1,0 +1,45 @@
+﻿<div class="jumbotron" id="login">
+    <div class="row main">
+        <div class="main-login main-center">
+            <div class="login-dark p-3 rounded">
+                <div class="pt-3">
+                    <h2 class="text-white ">Fazer login como ADM</h2>
+                </div>
+                
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                            </div>
+                            <input id="log" class="form-control bg-light" placeholder="Login" type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                            </div>
+                            <input id="senha" class="form-control bg-light" placeholder="Senha" type="password">
+                        </div>
+                    </div>
+
+                    <div class="mt-5">
+                        <button class="btn btn-sm btn-info col" onclick="Conf_Adm()">Entrar</button>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function Conf_Adm() {
+        var log = document.getElementById("log").value
+        var senha = document.getElementById("senha").value
+        if (log == "admin" && senha == "admin") {
+            window.location.href="Administrador"
+        } else {
+            window.alert("Login ou Senha não conferem com as de ADM!")
+        }
+    }
+</script>

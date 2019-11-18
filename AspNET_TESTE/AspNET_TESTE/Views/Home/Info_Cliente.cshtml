@@ -1,116 +1,236 @@
-﻿<div class="jumbotron">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 text-center" id="titulo">
-                <h1 class="display-3"><i class="fa fa-address-card-o"></i> Informações do usuário</i> </h1>
+﻿@{
+    String user = Request.QueryString["user"];
+    Manipulacao mn = new Manipulacao();
+    mn.InfoCliente(user);
+    ViewBag.C_Nome = mn.dados_InfoCliente[0];
+    ViewBag.C_CPF = mn.dados_InfoCliente[1];
+    ViewBag.C_Email = mn.dados_InfoCliente[2];
+    ViewBag.C_Ano = mn.dados_InfoCliente[3];
+    if (mn.dados_InfoCliente[4] != "") {
+        ViewBag.C_Tel = mn.dados_InfoCliente[4];
+    } else {
+        ViewBag.C_Tel = "-";
+    }
+
+    String msg = Request.QueryString["msg"];
+    if (msg != null) {
+        if (msg.Equals("sucess_des")) {
+            <script>
+                window.alert("Filme Desalugado com Sucesso!")
+            </script>
+        } else {
+            <script>
+                window.alert("Cadastro Editado com Sucesso!")
+            </script>
+        }
+    }
+
+
+    String erro = Request.QueryString["erro"];
+    if (erro != null) {
+        if (erro.Equals("Erro")) {
+            <script>
+                window.alert("Todos os campos em branco. Nenhuma alteração realizada!")
+            </script>
+        } else {
+            <a id="pass_erro" hidden>@erro</a>
+            <script>
+                var erro
+                erro = document.getElementById("pass_erro").innerText
+                window.alert(erro)
+            </script>
+        }
+    }
+
+
+}
+<div class="jumbotron">
+    <div class="col-12 text-center" id="titulo">
+        <h1 class="display-3"><i class="fa fa-address-card-o"></i> Informações do Cliente</i> </h1>
+    </div>
+    @*<div class="container">
+            <div class="row">
             </div>
-        </div>
-
-        <div class="pos-f-t" id="buscar">
-            <div class="collapse" id="navbarToggleExternalContent">
-                <div class="p-4">
-                    <h2>Editar suas informações</h2>
-                    <div class="form-group">
-                        <label for="name" class="cols-sm-2 control-label">Nome</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-                            </div>
-                            <input class="form-control bg-light" placeholder="Entre com seu email" type="text" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="name" class="cols-sm-2 control-label">Email</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
-                            </div>
-                            <input class="form-control bg-light" placeholder="Entre com seu email" type="email"
-                                   required>
-                        </div>
-                    </div>
-
-                    <div class="col-6">
+            <div class="pos-f-t" id="buscar">
+                <div class="collapse" id="navbarToggleExternalContent">
+                    <div class="p-4">
+                        <h2>Editar suas informações</h2>
                         <div class="form-group">
-                            <label for="name" class="cols-sm-2 control-label">Data de Nascimento</label>
+                            <label for="name" class="cols-sm-2 control-label">Nome</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text"> <i class="fa fa-calendar"></i> </span>
+                                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                                 </div>
-                                <input class="form-control bg-light" type="date" required>
+                                <input class="form-control bg-light" placeholder="Entre com seu email" type="text" required>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="col-6">
                         <div class="form-group">
-                            <label for="name" class="cols-sm-2 control-label">Telefone</label>
+                            <label for="name" class="cols-sm-2 control-label">Email</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+                                    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
                                 </div>
-                                <input class="form-control bg-light" placeholder="(xx) xxxx-xxx" type="text">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="name" class="cols-sm-2 control-label">CPF</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-                                </div>
-                                <input class="form-control bg-light" placeholder="Entre com o seu CPF" type="text"
+                                <input class="form-control bg-light" placeholder="Entre com seu email" type="email"
                                        required>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="col-3">
-                        <div class="form-group" id="butao">
-                            <button href="/login.html" type="button"
-                                    class="btn btn-success btn-md btn-block login-button">
-                                Salvar
-                            </button>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="name" class="cols-sm-2 control-label">Data de Nascimento</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"> <i class="fa fa-calendar"></i> </span>
+                                    </div>
+                                    <input class="form-control bg-light" type="date" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="name" class="cols-sm-2 control-label">Telefone</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+                                    </div>
+                                    <input class="form-control bg-light" placeholder="xxxx-xxx" type="text">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="name" class="cols-sm-2 control-label">CPF</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                                    </div>
+                                    <input class="form-control bg-light" placeholder="Entre com o seu CPF" type="text"
+                                           required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="form-group" id="butao">
+                                <button href="/login.html" type="button"
+                                        class="btn btn-success btn-md btn-block login-button">
+                                    Salvar
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <nav class="navbar navbar-dark bg-secondary ">
-            <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </nav>
+            <nav class="navbar navbar-dark bg-secondary ">
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </nav>
+        </div>*@
+
+    <!---------------------------------------------------------  Info. Cliente  ----------------------------------------------------->
+    <div class="container">
+        <form action="Att_infoCliente?user=@user" method="post">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="text-center">Nome</th>
+                        <th class="text-center">CPF</th>
+                        <th class="text-center">Email</th>
+                        <th class="text-center">Ano de Nascimento</th>
+                        <th class="text-center">Telefone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="info_Cliente">
+                        <td class="text-center">@ViewBag.C_Nome</td>
+                        <td class="text-center">@ViewBag.C_CPF</td>
+                        <td class="text-center">@ViewBag.C_Email</td>
+                        <td class="text-center">@ViewBag.C_Ano</td>
+                        <td class="text-center">@ViewBag.C_Tel</td>
+                        <td id="edit_bt" class="text-center">
+                            <a class="btn icon-btn btn-danger btn-sm" id="btn-del" onclick="Editar()">Editar</a>
+                        </td>
+                    </tr>
+                    <tr id="change_Cliente" hidden>
+                        <td class="text-center"> <input name="nome" class="text-center" type="text" placeholder="@ViewBag.C_Nome" /> </td>
+                        <td class="text-center">@ViewBag.C_CPF</td>
+                        <td class="text-center">@ViewBag.C_Email</td>
+                        <td class="text-center"><input name="ano" class="text-center" type="number" min="0" placeholder="@ViewBag.C_Ano" /> </td>
+                        <td class="text-center"><input name="tel" class="text-center" type="number" min="0" placeholder="@ViewBag.C_Tel" /> </td>
+                        <td id="save_bt" class="text-center">
+                            <button class="btn icon-btn btn-danger btn-sm" id="btn-del" type="submit">Salvar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
     </div>
 
-    <!---------------------------------------------------------  Table  ----------------------------------------------------->
+    <!---------------------------------------------------------  Filmes Alugados  ----------------------------------------------------->
     <div class="container">
+        <h3> Histórico de Alugel:</h3>
+        <form id="form_Desalugar" action="Desaluga_infoCliente?user=@user" method="post">
+            <input id="teste" type="hidden" name="desalugar" />
+        </form>
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Título</th>
-                    <th>Data do Aluguel</th>
-                    <th>Desalugar</th>
+                    <th class="text-center">Código</th>
+                    <th class="text-center">Título</th>
+                    <th class="text-center">Data do Aluguel</th>
+                    <th class="text-center">Hora do Aluguel</th>
+                    <th class="text-center">Status</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>01</td>
-                    <td>Operação Overlord</td>
-                    <td>04/11/2019</td>
-                    <td>
-                        <a class="btn icon-btn btn-danger btn-sm" href="" id="btn-del"><span class="fa fa-times"></span></a>
-                    </td>
-                </tr>
-              
+                @{
+                    mn.HistCliente(Request.QueryString["user"]);
+                    for (int i = 0; i < mn.cont_Rows; i++) {
+                        if (@mn.dados_HistCliente[i, 3].Equals("True")) {
+                            <tr>
+                                <td class="text-center">@mn.dados_HistCliente[i, 0]</td>
+                                <td class="text-center">@mn.dados_HistCliente[i, 1]</td>
+                                <td class="text-center">@mn.dados_HistCliente[i, 2].Substring(0, 11)</td>
+                                <td class="text-center">@mn.dados_HistCliente[i, 2].Substring(11)</td>
+                                <td class="text-center">
+                                    <button class="btn icon-btn btn-danger btn-sm" id="btn-del" onclick="Desalugar(@mn.dados_HistCliente[i, 0])"><span class="fa fa-times">Desalugar</span></button>
+                            </tr>
+
+                        } else {
+                            <tr>
+                                <td class="text-center">@mn.dados_HistCliente[i, 0]</td>
+                                <td class="text-center">@mn.dados_HistCliente[i, 1]</td>
+                                <td class="text-center">@mn.dados_HistCliente[i, 2].Substring(0, 11)</td>
+                                <td class="text-center">@mn.dados_HistCliente[i, 2].Substring(11)</td>
+                                <td class="text-center">-</td>
+                            </tr>
+
+                        }
+
+
+                    }
+
+                }
+
             </tbody>
         </table>
     </div>
 
 </div>
+<script>
+    function Editar() {
+        document.getElementById("info_Cliente").hidden = true
+        document.getElementById("change_Cliente").hidden = false
+    }
+
+    function Desalugar(cod) {
+        document.forms[1].desalugar.value = cod
+        document.forms[1].submit()
+    }
+</script>

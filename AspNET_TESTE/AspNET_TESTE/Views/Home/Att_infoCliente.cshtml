@@ -1,0 +1,18 @@
+﻿@{ 
+    String cpf  = Request.QueryString["user"];
+    String nome = Request.Form["nome"];
+    String ano  = Request.Form["ano"];
+    String tel  = Request.Form["tel"];
+
+    if(nome.Length > 0 || ano.Length > 0 || tel.Length > 0) {
+        Consulta cs = new Consulta();
+        cs.AtualizaInfoCliente(cpf, nome, ano, tel);
+        if (cs.mensagem.Equals("Sucesso")) {
+            Response.Redirect("Info_Cliente?user="+cpf+"&msg=sucess_edit");
+        } else {
+            Response.Redirect("Info_Cliente?user="+cpf+"&erro="+cs.mensagem.Replace("\n", " ").Replace("\r", ""));
+        }
+    } else {
+        Response.Redirect("Info_Cliente?user="+cpf+"&erro=Erro");
+    }
+}

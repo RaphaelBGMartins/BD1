@@ -1,0 +1,11 @@
+﻿@{ 
+    String id = Request.QueryString["id"];
+    String cpf = Request.QueryString["user"];
+    int aluga = int.Parse(Request.QueryString["aluga"]);
+
+    Manipulacao mn = new Manipulacao();
+
+    String mensagem = mn.AlterandoAluga(id, cpf, aluga);
+
+    Response.Redirect("Info_Filme?user="+cpf+"&id="+id+"&msg="+mensagem+"&aluga="+aluga.ToString());
+}

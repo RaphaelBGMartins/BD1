@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    String user = Request.QueryString["user"];
+    ViewBag.User = user;
+}
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -19,11 +22,17 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Início", "Home", "Home")</li>
-                    <li>@Html.ActionLink("Minha Conta", "Info_Cliente", "Home")</li>
+                    @{
+                        if (user != null) {
+                            <li> <a href="Home?user=@ViewBag.User">Início</a> </li>
+                            <li> <a href="Info_Cliente?user=@ViewBag.User">Minha Conta</a> </li>
+                        } else {
+                            <li> <a href="Index">Logar</a> </li>
+                        }
+                    }
                 </ul>
                 <ul class="nav navbar-nav" id="adm">
-                    <li>@Html.ActionLink("Área do Administrador", "Administrador", "Home")</li>
+                    <li> <a href="Login_Admin">Área do Administrador</a> </li>
                 </ul>
             </div>
         </div>

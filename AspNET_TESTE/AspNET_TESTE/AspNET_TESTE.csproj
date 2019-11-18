@@ -119,6 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="Controllers\Manipulacao.cs" />
     <Compile Include="Controllers\Consulta.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -192,7 +193,12 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Views\Home\Administrador.cshtml" />
+    <Content Include="Views\Home\Att_Aluga.cshtml" />
+    <Content Include="Views\Home\Att_Cadastro.cshtml" />
+    <Content Include="Views\Home\Att_infoCliente.cshtml" />
     <None Include="Views\Home\Cad_Cliente.cshtml" />
+    <Content Include="Views\Home\Cad_Filme.cshtml" />
+    <None Include="Views\Home\ConfUser.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -208,6 +214,9 @@
     <Content Include="Views\Home\Home.cshtml" />
     <Content Include="Views\Home\Info_Cliente.cshtml" />
     <Content Include="Views\Home\Info_FIlme.cshtml" />
+    <Content Include="Views\Home\Desaluga_infoCliente.cshtml" />
+    <Content Include="Views\Home\Login_Admin.cshtml" />
+    <Content Include="Views\Home\Deletando_Filme.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />

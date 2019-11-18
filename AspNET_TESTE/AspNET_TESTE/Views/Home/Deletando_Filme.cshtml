@@ -1,0 +1,7 @@
+﻿@{
+    String cpf = Request.Form["deletar"];
+    Manipulacao mn = new Manipulacao();
+    String msg = mn.DeletandoFilmes(cpf);
+    msg = msg.Replace("\n", " ").Replace("\r", "");
+    Response.Redirect("Administrador?msgDel="+msg);
+}

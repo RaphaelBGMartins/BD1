@@ -1,0 +1,21 @@
+﻿@{ 
+    String nome  = Request.Form["nome"];
+    String email = Request.Form["email"];
+    String cpf = Request.Form["cpf"];
+    String ano = Request.Form["ano"];
+    String telefone = Request.Form["telefone"];
+    Manipulacao mn = new Manipulacao();
+    String mensagem = mn.NovoCliente(nome, email, cpf, ano, telefone);
+    if (mensagem.Equals("Sucesso")) {
+        Response.Redirect("Index?msg=" + mensagem);
+    } else {
+        if (mensagem.Contains(cpf)) {
+            mensagem = "CPF (" + cpf + ") já cadastrado!";
+        } else if (mensagem.Contains(email)) {
+            mensagem = "Email (" + email + ") já cadastrado!";
+        } else {
+            mensagem = mensagem.Replace("\n", " ").Replace("\r", "");
+        }
+        Response.Redirect("Cad_Cliente?mensagem="+mensagem);
+    }
+}

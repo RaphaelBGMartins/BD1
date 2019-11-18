@@ -1,4 +1,8 @@
-﻿<div class="jumbotron">
+﻿@{ 
+    String user = Request.QueryString["user"];
+    ViewBag.User = user;
+}
+<div class="jumbotron">
     <h1> Filmes em Catálogo</h1>
     <!--
     <div class="pos-f-t" id="buscar">
@@ -102,17 +106,20 @@
             <div class="col-xs-12 shelf hidden-md hidden-lg"></div>
             @{
 
-                Consulta result = new Consulta();
-                ViewBag.mensagem = result.BuscaFilmes().Rows[1].ItemArray[0];
+                Manipulacao dados = new Manipulacao();
+                dados.Busca_Home();
 
-                <script type="text/javascript">
-                    var teste = @ViewBag.mensagem
-                    window.alert(teste);
-                </script>
+                for (int i = 0; i < dados.cont_Rows; i++) {
+
+                    ViewBag.Cod = dados.dados_CodFilme[i];
+                    ViewBag.Nome = dados.dados_NomeFilme[i];
+                    
+                    <div class="col-xs-4 col-md-2">
+                        <h3> <a href="Info_FIlme?user=@ViewBag.User&id=@ViewBag.Cod"> @ViewBag.Nome </a> </h3>
+                    </div>
+
+                }
             }
-            <div class="col-xs-4 col-md-2">
-                <a href="Info_FIlme?id=1"> 1 </a>
-            </div>
         </div>
     </div>
 </div>

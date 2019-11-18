@@ -1,0 +1,8 @@
+﻿@{ 
+    <script>window.alert("a")</script>
+    String id = Request.Form["desalugar"];
+    String cpf = Request.QueryString["user"];
+    Manipulacao mn = new Manipulacao();
+    String mensagem = mn.AlterandoAluga(id, cpf, 0);
+    Response.Redirect("Info_Cliente?user="+cpf+"&msg=sucess_des");
+}

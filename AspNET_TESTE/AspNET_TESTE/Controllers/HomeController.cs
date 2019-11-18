@@ -42,5 +42,45 @@ namespace AspNET_TESTE.Controllers {
             return View();
         }
 
+        public ActionResult ConfUser() {
+            ViewBag.Title = "Conferindo Usuário";
+            return View();
+        }
+
+        public ActionResult Att_Aluga() {
+            ViewBag.Title = "Atualização Alugel";
+            return View();
+        }
+
+        public ActionResult Att_Cadastro() {
+            ViewBag.Title = "Cadastro de Cliente";
+            return View();
+        }
+
+        public ActionResult Desaluga_infoCliente() {
+            ViewBag.Title = "Desalugando";
+            return View();
+        }
+
+        public ActionResult Att_infoCliente() {
+            ViewBag.Title = "Atualizando info. Cliente";
+            return View();
+        }
+
+        public ActionResult Login_Admin() {
+            ViewBag.Title = "Área do ADM";
+            return View();
+        }
+
+        public ActionResult Deletando_Filme() {
+            ViewBag.Title = "Deletando Filme";
+            return View();
+        }
+
+        public ActionResult Cad_Filme() {
+            ViewBag.Title = "Cadastrando Filme";
+            return View();
+        }
+
     }
 }

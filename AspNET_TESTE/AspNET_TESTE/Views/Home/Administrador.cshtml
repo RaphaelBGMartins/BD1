@@ -1,127 +1,315 @@
-﻿<div  class="jumbotron">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 text-center" id="titulo">
-                <h1 class="display-3"><i class="fa fa-film"></i> Gerência de Filmes</i> </h1>
+﻿@{
+    Manipulacao mn = new Manipulacao();
 
+    String msgDel = Request.QueryString["msgDel"];
+    if (msgDel != null) {
+        if (msgDel.Equals("Sucesso")) {
+            <script>
+                window.alert("Filme deletado com sucesso!")
+            </script>
+        } else {
+            <a id='x_del' hidden> @msgDel </a>
+            <script>
+                window.alert(document.getElementById('x_del').innerText)
+            </script>
+        }
+    }
+
+    String msgCad = Request.QueryString["msgCad"];
+    if (msgCad != null) {
+        if (msgCad.Equals("Sucesso")) {
+            <script>
+                window.alert("Filme cadastrado com sucesso!")
+            </script>
+        } else {
+            <a id='x_cad' hidden> @msgCad </a>
+            <script>
+                window.alert(document.getElementById('x_cad').innerText)
+            </script>
+            }
+    }
+}
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center" id="titulo">
+                    <h1 class="display-3"><i class="fa fa-film"></i> Gerência de Filmes</i> </h1>
+
+                </div>
             </div>
-        </div>
-        <!---------------------------------------------------------  Buscar  ----------------------------------------------------->
+            <!---------------------------------------------------------  Buscar  ----------------------------------------------------->
 
-        <div class="pos-f-t" id="buscar">
-            <div class="collapse" id="navbarToggleExternalContent">
-                <form class="p-4" method="post" action="#">
+            <div class="pos-f-t" id="buscar">
+                <div class="collapse" id="navbarToggleExternalContent">
                     <div class="form-group">
                         <label for="name" class="cols-sm-2 control-label">Nome do filme</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"> <i class="fas fa-film"></i> </span>
                             </div>
-                            <input class="form-control bg-light" placeholder="Entre com nome do filme" type="text">
+                            <input id="cad_nome" class="form-control bg-light" placeholder="Entre com nome do filme" type="text">
                         </div>
                     </div>
 
                     <div class="col-4">
-                    <div class="form-group">
-                        <label for="name" class="cols-sm-2 control-label">Código do filme</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"> <i class="fa fa-calendar-o"></i> </span>
+                        <div class="form-group">
+                            <label for="name" class="cols-sm-2 control-label">Código do filme</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-calendar-o"></i> </span>
+                                </div>
+                                <input id="cad_cod" class="form-control bg-light" placeholder="Entre com o código" type="number" min="0">
                             </div>
-                            <input class="form-control bg-light" placeholder="Entre com o código" type="text">
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="name" class="cols-sm-2 control-label">Duração</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-clock-o"></i> </span>
+                                </div>
+                                <input id="cad_duracao" class="form-control bg-light" placeholder="Tempo em minutos" type="number" min="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="name" class="cols-sm-2 control-label">Ano de lançamento</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-calendar-o"></i> </span>
+                                </div>
+                                <input id="cad_ano" class="form-control bg-light" placeholder="Entre com o ano" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="name" class="cols-sm-2 control-label">Estúdio</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-dot-circle-o"></i> </span>
+                                </div>
+                                @{
+                                    mn.TodosEstudios();
+                                    String inner = "";
+                                    int c_Estd = mn.cont_Rows;
+                                    for (int i = 0; i < c_Estd; i++) {
+                                        inner = mn.dados_Estudios[i, 1];
+                                        <input type="radio" name="estudio" id="estudio" value="@mn.dados_Estudios[i,0]" /> @inner
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="name" class="cols-sm-2 control-label">Gênero</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-dot-circle-o"></i> </span>
+                                </div>
+                                @{
+                                    mn.TodosGeneros();
+                                    int c_Genero = mn.cont_Rows;
+                                    for (int i = 0; i < c_Genero; i++) {
+                                        <input type="checkbox" id="genero_@i" value="@mn.dados_Generos[i]" /> @mn.dados_Generos[i]
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="name" class="cols-sm-2 control-label">Atores - Nome (DRT)</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-dot-circle-o"></i> </span>
+                                </div>
+                                @{
+                                    mn.TodosAtores();
+                                    inner = "";
+                                    int c_Ator = mn.cont_Rows;
+                                    for (int i = 0; i < c_Ator; i++) {
+                                        inner = mn.dados_Atores[i, 1] + " (" + mn.dados_Atores[i, 0] + ")";
+                                        <input type="checkbox" id="ator_@i" value="@mn.dados_Atores[i,0]" />@inner
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="name" class="cols-sm-2 control-label">Diretores - Nome (Código)</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-dot-circle-o"></i> </span>
+                                </div>
+                                @{
+                                    mn.TodosDiretores();
+                                    inner = "";
+                                    int c_Diretor = mn.cont_Rows;
+                                    for (int i = 0; i < c_Diretor; i++) {
+                                        inner = mn.dados_Diretores[i, 1] + " (" + mn.dados_Diretores[i, 0] + ")";
+                                        <input type="checkbox" id="diretor_@i" value="@mn.dados_Diretores[i,0]" /> @inner
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="mb-4">
+
+                    <div class="row mt-4">
+                        <div class="col-3">
+                            <div class="form-group" id="butao">
+                                <button href="/login.html" type="button"
+                                        class="btn btn-primary btn-md btn-block" onclick="Cadastrar()">
+                                    <i class="fas fa-search"></i> Cadastrar
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-            <div class="col-4">
-                <div class="form-group">
-                    <label for="name" class="cols-sm-2 control-label">Duração</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"> <i class="fa fa-clock-o"></i> </span>
-                        </div>
-                        <input class="form-control bg-light" placeholder="Tempo em minutos"
-                               type="text">
-                    </div>
-                </div>
             </div>
+            <nav class="navbar navbar-dark bg-secondary ">
 
-            <div class="col-4">
-                <div class="form-group">
-                    <label for="name" class="cols-sm-2 control-label">Gênero</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"> <i class="fa fa-dot-circle-o"></i> </span>
-                        </div>
-                        <input class="form-control bg-light" placeholder="Entre com o gênero" type="text">
-                    </div>
-                </div>
-            </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon">Cadastrar Novo Filme</span>
+                </button>
+            </nav>
+        </div>
 
-            <div class="col-4">
-                <div class="form-group">
-                    <label for="name" class="cols-sm-2 control-label">Ano de lançamento</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"> <i class="fa fa-calendar-o"></i> </span>
-                        </div>
-                        <input class="form-control bg-light" placeholder="Entre com o ano" type="text">
-                    </div>
-                </div>
-            </div>
+        <!---------------------------------------------------------  Table  ----------------------------------------------------->
 
-            <hr class="mb-4">
-
-            <div class="row mt-4">
-                <div class="col-3">
-                    <div class="form-group" id="butao">
-                        <button href="/login.html" type="button"
-                                class="btn btn-primary btn-md btn-block">
-                            <i class="fas fa-search"></i> Cadastrar
-                        </button>
-                    </div>
-                </div>
-            </div>
+        <div class="container">
+            <form action="Deletando_Filme" method="post" hidden>
+                <input id="form_deletar" name="deletar" />
             </form>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="text-center">Código</th>
+                        <th class="text-center">Título</th>
+                        <th class="text-center">Duração</th>
+                        <th class="text-center">Ano</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        mn.InfoCompletaFilmes();
+                        for (int i = 0; i < mn.cont_Rows; i++) {
+                            <tr>
+                                <td class="text-center">@mn.dados_InfoFilme_Completa[i, 0]</td>
+                                <td class="text-center">@mn.dados_InfoFilme_Completa[i, 1]</td>
+                                <td class="text-center">@mn.dados_InfoFilme_Completa[i, 2]</td>
+                                <td class="text-center">@mn.dados_InfoFilme_Completa[i, 3]</td>
+                                <td class="text-center">
+                                    <button class="btn icon-btn btn-danger btn-sm" id="@mn.dados_InfoFilme_Completa[i, 0]" onclick="Deletar(@mn.dados_InfoFilme_Completa[i, 0])"><span class="fa fa-trash"><b>Deletar</b></span></button>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
         </div>
-        </div>
-        <nav class="navbar navbar-dark bg-secondary ">
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon">Cadastrar Filmes</span>
-            </button>
-        </nav>
     </div>
 
-    <!---------------------------------------------------------  Table  ----------------------------------------------------->
+    <script>
+    function Deletar(cod) {
+        document.forms[0].deletar.value = cod
+        document.forms[0].submit()
+    }
 
-    <div class="container">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Título</th>
-                    <th>Duração</th>
-                    <th>Gênero</th>
-                    <th>Ano</th>
-                    <th>Deletar</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>02</td>
-                    <td>Bohemian Rhapsody</td>
-                    <td>134</td>
-                    <td>Bibliografia</td>
-                    <td>2018</td>
-                    <td>
-                        <a class="btn icon-btn btn-danger btn-sm" href="" id="btn-del"><span class="fa fa-trash"></span></a>
-                    </td>
-                </tr>
-              
-            </tbody>
-        </table>
-    </div>
-</div>
+    function Cadastrar() {
+        var cad_nome = document.getElementById("cad_nome").value
+        var cad_cod = document.getElementById("cad_cod").value
+        var cad_dura = document.getElementById("cad_duracao").value
+        var cad_ano = document.getElementById("cad_ano").value
+        var cad_estd = null
+        var cad_gen = ""
+        var cad_ator = ""
+        var cad_dir = ""
+        var estd = document.getElementsByName("estudio")
+        for (var i = 0; i < estd.length; i++) {
+            if (estd[i].checked) {
+                cad_estd = estd[i].value
+                break
+            }
+        }
+        var cont_g = 0;
+        for (var i = 0; i < @c_Genero; i++) {
+            if (document.getElementById("genero_" + i).checked) {
+                cont_g++
+                if (cont_g == 1) {
+                    cad_gen = document.getElementById("genero_" + i).value.toString()
+                } else {
+                    cad_gen = cad_gen + "," + document.getElementById("genero_" + i).value.toString()
+                }
+            }
+        }
+        var cont_a = 0;
+        for (var i = 0; i < @c_Ator; i++) {
+            if (document.getElementById("ator_" + i).checked) {
+                cont_a++
+                if (cont_a == 1) {
+                    cad_ator = document.getElementById("ator_" + i).value.toString()
+                } else {
+                    cad_ator = cad_ator + "," + document.getElementById("ator_" + i).value.toString()
+                }
+            }
+        }
+        var cont_d = 0;
+        for (var i = 0; i < @c_Diretor; i++) {
+            if (document.getElementById("diretor_" + i).checked) {
+                cont_d++
+                if (cont_d == 1) {
+                    cad_dir = document.getElementById("diretor_" + i).value.toString()
+                } else {
+                    cad_dir = cad_dir + "," + document.getElementById("diretor_" + i).value.toString()
+                }
+            }
+        }
+        var erro = ""
+        if (cad_nome == "") {
+            erro = "- Campo de nome é obrigatório; \n"
+        }
+        if (cad_cod == "") {
+            erro = erro + "- Campo de código é obrigatório; \n"
+        }
+        if (cad_dura == "") {
+            erro = erro + "- Campo de duração é obrigatório; \n"
+        }
+        if (cad_ano == "") {
+            erro = erro + "- Campo de ano de lançamento é obrigatório; \n"
+        }
+        if (cad_estd == null) {
+            erro = erro + "- Escolha um estúdio; \n"
+        }
+        if (cont_g == 0) {
+            erro = erro + "- Escolha pelo menos um gênero; \n"
+        }
+        if (cont_a == 0) {
+            erro = erro + "- Escolha pelo menos um ator; \n"
+        }
+        if (cont_d == 0) {
+            erro = erro + "- Escolha pelo menos um diretor;"
+        }
+        if (erro != "") {
+            window.alert(erro)
+        } else {
+            window.location.href = "Cad_Filme?nome=" + cad_nome + "&cod=" + cad_cod + "&dura=" + cad_dura + "&ano=" + cad_ano + "&estd=" + cad_estd + "&gen=" + cad_gen + "&ator=" + cad_ator + "&dir=" + cad_dir
+        }
+    }
+    </script>
