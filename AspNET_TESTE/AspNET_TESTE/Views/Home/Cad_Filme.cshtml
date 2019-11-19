@@ -7,15 +7,17 @@
     String gen = Request.QueryString["gen"];
     String ator = Request.QueryString["ator"];
     String dir = Request.QueryString["dir"];
+    String fran = Request.QueryString["fran"];
 
     String[] generos = gen.Split(',');
     String[] atores = ator.Split(',');
     String[] diretores = dir.Split(',');
+    String[] franquia = fran.Split(',');
 
     Manipulacao mn = new Manipulacao();
-    String msg = mn.InserindoNovoFilme(nome, cod, dura, ano, estd, generos, atores, diretores);
+    String msg = mn.InserindoNovoFilme(nome, cod, dura, ano, estd, generos, atores, diretores, franquia);
     if (!msg.Equals("Sucesso")) {
         msg = msg.Replace("\n", " ").Replace("\r", "");
     }
-    Response.Redirect("Administrador?msgCad="+msg);
+    Response.Redirect("Administrador?msgCad=" + msg);
 }

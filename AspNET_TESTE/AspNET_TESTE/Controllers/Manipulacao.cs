@@ -13,6 +13,7 @@ namespace AspNET_TESTE {
         public String       dados_InfoFime_Ator      { get; private set; }
         public String       dados_InfoFime_Diretor   { get; private set; }
         public String       dados_InfoFime_Genero    { get; private set; }
+        public String       dados_InfoFime_Franquia  { get; private set; }
         public Boolean      dados_InfoFilme_Alugado  { get; private set; }
         public String[]     dados_InfoCliente        { get; private set; }
         public String[,]   dados_HistCliente         { get; private set; }
@@ -92,6 +93,20 @@ namespace AspNET_TESTE {
                 dados_InfoFilme_Alugado = false; //nao tem filme alugado
             }
                
+        }
+
+        public void Busca_Franquia(String id) {
+            Consulta cs = new Consulta();
+            DataTable franquia = cs.BuscaInfoFilme_Franquia(id);
+            cont_Rows = franquia.Rows.Count;
+            dados_InfoFime_Franquia = "";
+            for (int i = 0; i < cont_Rows; i++) {
+                if (i == 0) {
+                    dados_InfoFime_Franquia = franquia.Rows[i].ItemArray[0].ToString();
+                } else {
+                    dados_InfoFime_Franquia = dados_InfoFime_Franquia + ", " + franquia.Rows[i].ItemArray[0].ToString();
+                }
+            }
         }
 
         public String AlterandoAluga(String id, String cpf, int bit) {
@@ -189,7 +204,7 @@ namespace AspNET_TESTE {
             }
         }
 
-        public String InserindoNovoFilme(String nome, String cod, String dura, String ano, String estd, String[] gen, String[] ator, String[] dir) {
+        public String InserindoNovoFilme(String nome, String cod, String dura, String ano, String estd, String[] gen, String[] ator, String[] dir, String[] franq) {
             Boolean sucess = true;
             Consulta cs = new Consulta();
             cs.NovoFilme(cod, nome, dura, ano, estd);
@@ -220,7 +235,27 @@ namespace AspNET_TESTE {
                                 break;
                             }
                         }
-                        return cs.mensagem;
+                        if (sucess) {
+                            if (franq[0].Length > 0) {
+                                for (int i = 0; i < franq.Length; i++) {
+                                    cs = new Consulta();
+                                    cs.NovaFranquia(franq[i], cod);
+                                    if (!cs.mensagem.Equals("Sucesso")) {
+                                        sucess = false;
+                                        break;
+                                    }
+                                    cs = new Consulta();
+                                    cs.NovaFranquia(cod, franq[i]);
+                                    if (!cs.mensagem.Equals("Sucesso")) {
+                                        sucess = false;
+                                        break;
+                                    }
+                                }
+                            }
+                            return cs.mensagem;
+                        } else {
+                            return cs.mensagem;
+                        }
                     } else {
                         return cs.mensagem;
                     }

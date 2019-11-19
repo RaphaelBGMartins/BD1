@@ -165,6 +165,26 @@
                         </div>
                     </div>
 
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="name" class="cols-sm-2 control-label">Franquia - Nome (Código)</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-dot-circle-o"></i> </span>
+                                </div>
+                                @{
+                                    mn.Busca_Home();
+                                    inner = "";
+                                    int c_Franquia = mn.cont_Rows;
+                                    for (int i = 0; i < c_Franquia; i++) {
+                                        inner = mn.dados_NomeFilme[i] + " (" + mn.dados_CodFilme[i] + ")";
+                                        <input type="checkbox" id="franq_@i" value="@mn.dados_CodFilme[i]" /> @inner
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+
                     <hr class="mb-4">
 
                     <div class="row mt-4">
@@ -241,6 +261,7 @@
         var cad_gen = ""
         var cad_ator = ""
         var cad_dir = ""
+        var cad_fran = ""
         var estd = document.getElementsByName("estudio")
         for (var i = 0; i < estd.length; i++) {
             if (estd[i].checked) {
@@ -281,6 +302,17 @@
                 }
             }
         }
+        var cont_f = 0;
+        for (var i = 0; i < @c_Franquia; i++) {
+            if (document.getElementById("franq_" + i).checked) {
+                cont_f++
+                if (cont_f == 1) {
+                    cad_fran = document.getElementById("franq_" + i).value.toString()
+                } else {
+                    cad_fran = cad_fran + "," + document.getElementById("franq_" + i).value.toString()
+                }
+            }
+        }
         var erro = ""
         if (cad_nome == "") {
             erro = "- Campo de nome é obrigatório; \n"
@@ -309,7 +341,7 @@
         if (erro != "") {
             window.alert(erro)
         } else {
-            window.location.href = "Cad_Filme?nome=" + cad_nome + "&cod=" + cad_cod + "&dura=" + cad_dura + "&ano=" + cad_ano + "&estd=" + cad_estd + "&gen=" + cad_gen + "&ator=" + cad_ator + "&dir=" + cad_dir
+            window.location.href = "Cad_Filme?nome=" + cad_nome + "&cod=" + cad_cod + "&dura=" + cad_dura + "&ano=" + cad_ano + "&estd=" + cad_estd + "&gen=" + cad_gen + "&ator=" + cad_ator + "&dir=" + cad_dir + "&fran=" + cad_fran
         }
     }
     </script>

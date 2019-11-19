@@ -138,7 +138,26 @@ namespace AspNET_TESTE {
                 return null;
             }
         }
-        
+
+        //Buscando Informações de um Filme (Franquia)
+        public DataTable BuscaInfoFilme_Franquia(String id) {
+            cmd.CommandText = "select fi.Nome from FRANQUIA f join  Filme fi on fi.Cod_Filme = f.Cod_Filme_Franquia where f.Cod_Filme = @id";
+            cmd.Parameters.AddWithValue("@id", id);
+            SqlDataAdapter resultSET = new SqlDataAdapter();
+            DataTable dt_retorno = new DataTable();
+            try {
+                cmd.Connection = con.Conectar();
+                resultSET.SelectCommand = cmd;
+                resultSET.Fill(dt_retorno);
+                con.Desconectar();
+                this.mensagem = "Sucesso";
+                return dt_retorno;
+            } catch (SqlException e) {
+                this.mensagem = e.Message;
+                return null;
+            }
+        }
+
         //Buscando se o filme está alugado pelo cliente
         public DataTable BuscaInfoAlugado(String id, String cpf) {
             cmd.CommandText = "select 1 from Aluga a where a.Cod_Filme = @id and a.Alugado = 1 and a.CPF = @cpf";
@@ -345,6 +364,7 @@ namespace AspNET_TESTE {
                 return null;
             }
         }
+        
         //Buscando Diretores Cadastrados
         public DataTable BuscandoDiretores() {
             cmd.CommandText = "select Cod_Diretor, Nome from Diretor";
@@ -362,6 +382,7 @@ namespace AspNET_TESTE {
                 return null;
             }
         }
+        
         //Buscando Estudios Cadastrados
         public DataTable BuscandoEstudios() {
             cmd.CommandText = "select Cod_Estudio, Nome from Estudio";
@@ -379,6 +400,7 @@ namespace AspNET_TESTE {
                 return null;
             }
         }
+
         //Inserindo Novo Filme
         public void NovoFilme(String cod, String nome, String duracao, String ano, String estudio) {
             cmd.CommandText = "insert into Filme (Cod_Filme, Nome, Duracao, Ano_Lancamento, Cod_Estudio) values (@cod, @nome, @duracao, @ano, @estd)";
@@ -396,6 +418,7 @@ namespace AspNET_TESTE {
                 this.mensagem = e.Message;
             }
         }
+       
         //Inserindo Atuaçao do Filme
         public void NovaAtuacao(String drt, String cod) {
             cmd.CommandText = "insert into Atua (DRT, Cod_Filme) values (@drt, @cod)";
@@ -410,6 +433,7 @@ namespace AspNET_TESTE {
                 this.mensagem = e.Message;
             }
         }
+        
         //Inserindo Classificacao do Filme
         public void NovaClassificacao(String gen, String cod) {
             cmd.CommandText = "insert into Classifica (Nome, Cod_Filme) values (@gen, @cod)";
@@ -424,10 +448,26 @@ namespace AspNET_TESTE {
                 this.mensagem = e.Message;
             }
         }
+       
         //Inserindo Direcao do Filme
         public void NovaDircao(String dir, String cod) {
             cmd.CommandText = "insert into Dirige (Cod_Diretor, Cod_Filme) values (@dir, @cod)";
             cmd.Parameters.AddWithValue("@dir", dir);
+            cmd.Parameters.AddWithValue("@cod", cod);
+            try {
+                cmd.Connection = con.Conectar();
+                cmd.ExecuteNonQuery();
+                con.Desconectar();
+                this.mensagem = "Sucesso";
+            } catch (SqlException e) {
+                this.mensagem = e.Message;
+            }
+        }
+
+        //Inserindo Franquia do Filme
+        public void NovaFranquia(String franq, String cod) {
+            cmd.CommandText = "insert into FRANQUIA (Cod_Filme_Franquia, Cod_Filme) values (@franq, @cod)";
+            cmd.Parameters.AddWithValue("@franq", franq);
             cmd.Parameters.AddWithValue("@cod", cod);
             try {
                 cmd.Connection = con.Conectar();

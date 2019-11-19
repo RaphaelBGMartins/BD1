@@ -68,6 +68,16 @@
                                 <th><i class="fa fa-calendar-o"></i>  Lançamento:  </th>
                                 <td>@ViewBag.Lancamento</td>
                             </tr>
+                            @{
+                                dados = new Manipulacao();
+                                dados.Busca_Franquia(id);
+                                if (dados.cont_Rows > 0) {
+                                    <tr>
+                                        <th><i class="fa fa-calendar-o"></i>  Franquia:  </th>
+                                        <td>@dados.dados_InfoFime_Franquia</td>
+                                    </tr>
+                                }
+                            }
                         </tbody>
                     </table>
                 </div>
