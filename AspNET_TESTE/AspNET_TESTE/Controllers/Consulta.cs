@@ -43,7 +43,7 @@ namespace AspNET_TESTE {
         //Buscando Nome e Codigo do Filme
         public DataTable BuscaFilmes()
         {
-            cmd.CommandText = "SELECT Cod_Filme, Nome FROM Filme";
+            cmd.CommandText = "SELECT Cod_Filme, Nome FROM Filme order by Cod_Filme";
             SqlDataAdapter resultSET = new SqlDataAdapter();
             DataTable dt_retorno = new DataTable();
             try 
@@ -60,7 +60,24 @@ namespace AspNET_TESTE {
                 this.mensagem = e.Message;
                 return null;
             }
-            
+        }
+
+        //Buscando a Imagem dos Filmes
+        public DataTable BuscaImagem() {
+            cmd.CommandText = "select imagem from Imagens order by Cod_Filme";
+            SqlDataAdapter resultSET = new SqlDataAdapter();
+            DataTable dt_retorno = new DataTable();
+            try {
+                cmd.Connection = con.Conectar();
+                resultSET.SelectCommand = cmd;
+                resultSET.Fill(dt_retorno);
+                con.Desconectar();
+                this.mensagem = "Sucesso";
+                return dt_retorno;
+            } catch (SqlException e) {
+                this.mensagem = e.Message;
+                return null;
+            }
         }
 
         //Buscando Informações de um Filme (Nome, Estudio, Duracao, Ano_Lançamento
@@ -316,9 +333,9 @@ namespace AspNET_TESTE {
         }
 
         //Deletando Filme
-        public void DeletandoFilme(String cpf) {
-            cmd.CommandText = "delete Aluga where Cod_Filme = @cpf delete Dirige where Cod_Filme = @cpf delete Atua where Cod_Filme = @cpf delete FRANQUIA where Cod_Filme = @cpf or Cod_Filme_Franquia = @cpf delete Classifica where Cod_Filme = @cpf delete Filme where Cod_Filme = @cpf";
-            cmd.Parameters.AddWithValue("@cpf", cpf);
+        public void DeletandoFilme(String cod) {
+            cmd.CommandText = "delete Aluga where Cod_Filme = @cod delete Dirige where Cod_Filme = @cod delete Atua where Cod_Filme = @cod delete FRANQUIA where Cod_Filme = @cod or Cod_Filme_Franquia = @cod delete Classifica where Cod_Filme = @cod delete Imagens where Cod_Filme = @cod delete Filme where Cod_Filme = @cod";
+            cmd.Parameters.AddWithValue("@cod", cod);
             try {
                 cmd.Connection = con.Conectar();
                 cmd.ExecuteNonQuery();
@@ -419,6 +436,20 @@ namespace AspNET_TESTE {
             }
         }
        
+        //Inserindo "nova Imagem"
+        public void NovaImagem(String cod) {
+            cmd.CommandText = "insert into Imagens (Cod_Filme, Imagem) values (@cod, 0)";
+            cmd.Parameters.AddWithValue("@cod", cod);
+            try {
+                cmd.Connection = con.Conectar();
+                cmd.ExecuteNonQuery();
+                con.Desconectar();
+                this.mensagem = "Sucesso";
+            } catch (SqlException e) {
+                this.mensagem = e.Message;
+            }
+        }
+
         //Inserindo Atuaçao do Filme
         public void NovaAtuacao(String drt, String cod) {
             cmd.CommandText = "insert into Atua (DRT, Cod_Filme) values (@drt, @cod)";

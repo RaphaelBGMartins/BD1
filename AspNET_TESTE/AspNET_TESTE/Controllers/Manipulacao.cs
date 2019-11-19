@@ -9,6 +9,7 @@ namespace AspNET_TESTE {
         public int          cont_Rows                { get; private set; }
         public String[]     dados_CodFilme           { get; private set; }
         public String[]     dados_NomeFilme          { get; private set; }
+        public Boolean[]     dados_ImagemFilme        { get; private set; }
         public String[]     dados_InfoFilme_Filme    { get; private set; }
         public String       dados_InfoFime_Ator      { get; private set; }
         public String       dados_InfoFime_Diretor   { get; private set; }
@@ -29,16 +30,26 @@ namespace AspNET_TESTE {
             return ret;
         }
 
+        public void Busca_Imagem() {
+            Consulta cs = new Consulta();
+            DataTable busca_Imagem = cs.BuscaImagem();
+            cont_Rows = busca_Imagem.Rows.Count;
+            dados_ImagemFilme = new Boolean[cont_Rows];
+            for(int i = 0; i< cont_Rows; i++) {
+                dados_ImagemFilme[i] = Convert.ToBoolean(busca_Imagem.Rows[i].ItemArray[0]);
+            }            
+        }
+
         public void Busca_Home() {
             Consulta cs = new Consulta();
             DataTable busca_Home = cs.BuscaFilmes();
             cont_Rows = busca_Home.Rows.Count;
             dados_CodFilme = new String[cont_Rows];
             dados_NomeFilme = new String[cont_Rows];
-            for(int i = 0; i< cont_Rows; i++) {
+            for (int i = 0; i < cont_Rows; i++) {
                 dados_CodFilme[i] = busca_Home.Rows[i].ItemArray[0].ToString();
                 dados_NomeFilme[i] = busca_Home.Rows[i].ItemArray[1].ToString();
-            }            
+            }
         }
 
         public void Busca_InfoFilme(String id, String cpf) {
@@ -209,50 +220,56 @@ namespace AspNET_TESTE {
             Consulta cs = new Consulta();
             cs.NovoFilme(cod, nome, dura, ano, estd);
             if (cs.mensagem.Equals("Sucesso")) {
-                for(int i = 0; i<gen.Length; i++) {
-                    cs = new Consulta();
-                    cs.NovaClassificacao(gen[i], cod);
-                    if (!cs.mensagem.Equals("Sucesso")) {
-                        sucess = false;
-                        break;
-                    }
-                }
-                if (sucess) {
-                    for (int i = 0; i < ator.Length; i++) {
+                cs = new Consulta();
+                cs.NovaImagem(cod);
+                if (cs.mensagem.Equals("Sucesso")) {
+                    for (int i = 0; i < gen.Length; i++) {
                         cs = new Consulta();
-                        cs.NovaAtuacao(ator[i], cod);
+                        cs.NovaClassificacao(gen[i], cod);
                         if (!cs.mensagem.Equals("Sucesso")) {
                             sucess = false;
                             break;
                         }
                     }
                     if (sucess) {
-                        for (int i = 0; i < dir.Length; i++) {
+                        for (int i = 0; i < ator.Length; i++) {
                             cs = new Consulta();
-                            cs.NovaDircao(dir[i], cod);
+                            cs.NovaAtuacao(ator[i], cod);
                             if (!cs.mensagem.Equals("Sucesso")) {
                                 sucess = false;
                                 break;
                             }
                         }
                         if (sucess) {
-                            if (franq[0].Length > 0) {
-                                for (int i = 0; i < franq.Length; i++) {
-                                    cs = new Consulta();
-                                    cs.NovaFranquia(franq[i], cod);
-                                    if (!cs.mensagem.Equals("Sucesso")) {
-                                        sucess = false;
-                                        break;
-                                    }
-                                    cs = new Consulta();
-                                    cs.NovaFranquia(cod, franq[i]);
-                                    if (!cs.mensagem.Equals("Sucesso")) {
-                                        sucess = false;
-                                        break;
-                                    }
+                            for (int i = 0; i < dir.Length; i++) {
+                                cs = new Consulta();
+                                cs.NovaDircao(dir[i], cod);
+                                if (!cs.mensagem.Equals("Sucesso")) {
+                                    sucess = false;
+                                    break;
                                 }
                             }
-                            return cs.mensagem;
+                            if (sucess) {
+                                if (franq[0].Length > 0) {
+                                    for (int i = 0; i < franq.Length; i++) {
+                                        cs = new Consulta();
+                                        cs.NovaFranquia(franq[i], cod);
+                                        if (!cs.mensagem.Equals("Sucesso")) {
+                                            sucess = false;
+                                            break;
+                                        }
+                                        cs = new Consulta();
+                                        cs.NovaFranquia(cod, franq[i]);
+                                        if (!cs.mensagem.Equals("Sucesso")) {
+                                            sucess = false;
+                                            break;
+                                        }
+                                    }
+                                }
+                                return cs.mensagem;
+                            } else {
+                                return cs.mensagem;
+                            }
                         } else {
                             return cs.mensagem;
                         }
