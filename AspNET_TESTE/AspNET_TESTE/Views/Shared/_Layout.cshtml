@@ -27,12 +27,12 @@
                             <li> <a href="Home?user=@ViewBag.User">Início</a> </li>
                             <li> <a href="Info_Cliente?user=@ViewBag.User">Minha Conta</a> </li>
                         } else {
-                            <li> <a href="Index">Logar</a> </li>
+                            <li> <a href="@Url.Action("Index", "Home")">Logar</a> </li>
                         }
                     }
                 </ul>
                 <ul class="nav navbar-nav" id="adm">
-                    <li> <a href="Login_Admin">Área do Administrador</a> </li>
+                    <li> <a href="@Url.Action("Login_Admin", "Home")">Área do Administrador</a> </li>
                 </ul>
             </div>
         </div>
